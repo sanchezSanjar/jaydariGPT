@@ -6,5 +6,8 @@ __pycache__/
 # Base model is downloaded by download_base_model.py (several GB)
 models/TinyLlama-1.1B-Chat-v1.0/
 
+# Log written when started from JaydariGPT.exe
+jaydarigpt.log
+
 # Training output (see `python main.py train --output-dir`)
 models/jaydari_gpt_adapter_new/

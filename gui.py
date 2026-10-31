@@ -3,14 +3,36 @@ from __future__ import annotations
 
 import json
 import queue
+import sys
 import threading
 import time
 import tkinter as tk
+import traceback
 from pathlib import Path
 from tkinter import messagebox, ttk
 
-from src.inference import load_finetuned_model, stream_answer
-from src.model import DEFAULT_ADAPTER_DIR, DEFAULT_MODEL_ID, resolve_path
+APP_DIR = Path(__file__).resolve().parent
+LOG_FILE = APP_DIR / "jaydarigpt.log"
+
+# Started from JaydariGPT.exe (pythonw) there is no console: stdout/stderr are None and
+# any library output (progress bars, warnings) would crash. Send it to a log file instead.
+if sys.stdout is None or sys.stderr is None:
+    sys.stdout = sys.stderr = open(LOG_FILE, "w", encoding="utf-8", buffering=1)
+
+try:
+    from src.inference import load_finetuned_model, stream_answer
+    from src.model import DEFAULT_ADAPTER_DIR, DEFAULT_MODEL_ID, resolve_path
+except Exception:
+    traceback.print_exc()
+    _root = tk.Tk()
+    _root.withdraw()
+    messagebox.showerror(
+        "JaydariGPT could not start",
+        "Python packages are missing or broken.\n\n"
+        "Run INSTALL_WINDOWS.bat again, then reopen JaydariGPT.\n\n"
+        f"Details: {LOG_FILE}"
+    )
+    sys.exit(1)
 
 BASE_MODEL = DEFAULT_MODEL_ID
 ADAPTER = DEFAULT_ADAPTER_DIR
@@ -48,6 +70,9 @@ class JaydariGPTApp:
         self.root.geometry("1180x780")
         self.root.minsize(900, 600)
         self.root.configure(bg=BG)
+        icon = APP_DIR / "assets" / "jaydarigpt.ico"
+        if icon.exists():
+            self.root.iconbitmap(default=str(icon))
 
         self.tokenizer = None
         self.model = None

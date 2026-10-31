@@ -29,7 +29,16 @@ Recommended: Python 3.11 (64-bit), with several GB of free disk space. A GPU is 
 
    This downloads TinyLlama into `models\TinyLlama-1.1B-Chat-v1.0`. It may take a while and needs several GB of free disk space.
 5. When the download finishes, disconnect from the internet if you want.
-6. Double-click `START_JAYDARIGPT.bat` to open the desktop chat window.
+6. Double-click **`JaydariGPT.exe`** to open the chat dashboard. No console window appears.
+
+### JaydariGPT.exe
+
+- It is a small launcher (about 16 KB) that starts the dashboard from this folder's `.venv`. Keep it inside the `JaydariGPT_Local` folder; to open it from the Desktop, right-click it → **Send to → Desktop (create shortcut)**, or pin it to the taskbar.
+- If setup is not finished, it tells you which step to run.
+- App output and errors go to `jaydarigpt.log` in this folder.
+- Windows SmartScreen may warn the first time because the exe is not code-signed: choose **More info → Run anyway**.
+- To rebuild it (for example after changing the icon), double-click `launcher\build_launcher.bat`. It uses the C# compiler built into Windows, so nothing extra is needed.
+- `START_JAYDARIGPT.bat` still works and shows a console, which is handy for debugging.
 
 The desktop interface uses Python’s built-in Tkinter library, so it does not require a separate GUI package. The model loads in the background while the window remains responsive.
 
@@ -117,7 +126,10 @@ You do not need to activate the environment to launch the app. Use the included 
 
 ```text
 JaydariGPT_Local/
+├── JaydariGPT.exe                 # Double-click launcher for the dashboard
 ├── .vscode/                       # VS Code interpreter + Run configurations
+├── assets/jaydarigpt.ico          # App icon
+├── launcher/                      # Launcher source, icon script and build script
 ├── main.py
 ├── gui.py                         # Desktop chat dashboard
 ├── requirements.txt
