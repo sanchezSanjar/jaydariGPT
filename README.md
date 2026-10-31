@@ -52,7 +52,15 @@ Type `exit` to stop chatting.
 
 ## GPU setup
 
-The included Windows installer installs CPU PyTorch for maximum compatibility. If your PC has an NVIDIA GPU, install a PyTorch CUDA build that matches your driver from https://pytorch.org/get-started/locally/ before running inference. The inference loader automatically uses CUDA when available. The CPU version remains supported.
+`INSTALL_WINDOWS.bat` checks for an NVIDIA GPU (`nvidia-smi`). If it finds one it installs the GPU (CUDA 13.2) build of PyTorch, otherwise the CPU build. The model and adapter files are the same either way; only the PyTorch package differs. The app uses the GPU automatically and the dashboard shows **Device: GPU (CUDA)**.
+
+To switch an existing CPU install to the GPU, run in this folder:
+
+```bat
+.venv\Scripts\python.exe -m pip install --force-reinstall --no-deps torch --index-url https://download.pytorch.org/whl/cu132
+```
+
+The CUDA build needs a recent NVIDIA driver (CUDA 13.2 or newer; check with `nvidia-smi`). TinyLlama in float16 needs about 2.5 GB of GPU memory.
 
 ## Offline guarantee and boundaries
 
