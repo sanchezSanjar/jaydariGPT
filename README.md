@@ -64,6 +64,33 @@ python main.py --help
 
 The chat command defaults to the adapter included in this package and the local base-model folder.
 
+## Run in VS Code
+
+1. Install the **Python** extension (Microsoft) in VS Code.
+2. **File → Open Folder…** and choose the `JaydariGPT_Local` folder itself (not its parent).
+3. Finish the Quick start install steps once (`INSTALL_WINDOWS.bat`, then `download_base_model.py`). The included `.vscode/settings.json` points VS Code at `.venv` automatically; if it asks, pick `.venv\Scripts\python.exe` via **Ctrl+Shift+P → Python: Select Interpreter**.
+4. Open **Run and Debug** (Ctrl+Shift+D), pick a configuration and press **F5**:
+   - **JaydariGPT: Desktop chat** opens the chat dashboard window
+   - **JaydariGPT: Terminal chat** chats inside the VS Code terminal
+   - **JaydariGPT: Tokenizer demo** runs the tokenization demo
+
+You can also run from the VS Code terminal (Ctrl+`):
+
+```bat
+.venv\Scripts\python.exe gui.py
+.venv\Scripts\python.exe main.py chat
+```
+
+Model paths resolve against the project folder, so the app also works when started from another directory.
+
+## Desktop chat dashboard
+
+- Sidebar shows the status, model, device (CPU/GPU), load time, message count, last reply time and speed.
+- **Creativity** and **Max answer length** sliders change the next answer.
+- Answers stream in as they are written; the Send button becomes **Stop** while generating.
+- Right-click any message to copy it, or use **Copy last answer**. **New chat** clears the conversation.
+- Each message is answered on its own; the model does not remember earlier turns.
+
 ## Troubleshooting
 
 **`Base model directory is missing` / local files not found**
@@ -90,8 +117,9 @@ You do not need to activate the environment to launch the app. Use the included 
 
 ```text
 JaydariGPT_Local/
+├── .vscode/                       # VS Code interpreter + Run configurations
 ├── main.py
-├── gui.py                         # Desktop chat interface
+├── gui.py                         # Desktop chat dashboard
 ├── requirements.txt
 ├── download_base_model.py
 ├── INSTALL_WINDOWS.bat

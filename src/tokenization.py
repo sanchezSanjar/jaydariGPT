@@ -2,7 +2,7 @@
 import torch
 from torch import nn
 from transformers import AutoTokenizer
-from .model import DEFAULT_MODEL_ID
+from .model import DEFAULT_MODEL_ID, resolve_path
 
 
 def run_demo():
@@ -30,7 +30,7 @@ def run_demo():
     print("Embedding shape:", embedding(input_ids).shape)
 
     print("\n--- TinyLlama tokenizer ---")
-    tokenizer = AutoTokenizer.from_pretrained("models/TinyLlama-1.1B-Chat-v1.0", local_files_only=True)
+    tokenizer = AutoTokenizer.from_pretrained(resolve_path(DEFAULT_MODEL_ID), local_files_only=True)
     example = "Hello, how are you doing?"
     token_ids = tokenizer(example, return_tensors="pt")
     print("Vocabulary size:", tokenizer.vocab_size)

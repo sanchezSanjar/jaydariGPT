@@ -4,11 +4,23 @@ from pathlib import Path
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_MODEL_ID = "models/TinyLlama-1.1B-Chat-v1.0"
+DEFAULT_ADAPTER_DIR = "models/jaydari_gpt_adapter"
 
-def _resolve(path):
+def resolve_path(path):
+    """Resolve a relative path against the working directory, then the project root.
+
+    Lets the app start from any folder (for example a VS Code workspace one level up).
+    """
     p = Path(path)
-    return str(p.resolve()) if p.exists() else str(path)
+    if p.exists():
+        return str(p.resolve())
+    if not p.is_absolute() and (PROJECT_ROOT / p).exists():
+        return str(PROJECT_ROOT / p)
+    return str(path)
+
+_resolve = resolve_path
 
 def can_use_4bit():
     """4-bit loading needs both CUDA and an installed bitsandbytes package."""
