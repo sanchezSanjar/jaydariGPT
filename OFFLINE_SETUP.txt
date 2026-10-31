@@ -1,0 +1,1 @@
+1) Install Python packages while online using INSTALL_WINDOWS.bat.\n2) Download base weights once: .venv\\Scripts\\python.exe download_base_model.py\n3) Disconnect internet.\n4) Run START_JAYDARIGPT.bat\n

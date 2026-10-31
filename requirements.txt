@@ -1,0 +1,9 @@
+# Install PyTorch separately for your CPU/CUDA setup (see README).
+transformers>=4.45,<6
+peft>=0.13,<1
+accelerate>=0.34
+safetensors>=0.4
+sentencepiece>=0.2
+huggingface_hub>=0.24
+# Training-only dependencies:
+datasets>=2.20,<5

@@ -1,0 +1,10 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Base model is downloaded by download_base_model.py (several GB)
+models/TinyLlama-1.1B-Chat-v1.0/
+
+# Training output (see `python main.py train --output-dir`)
+models/jaydari_gpt_adapter_new/
